@@ -15,15 +15,15 @@ radio.onReceivedString(function (receivedString) {
             motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 80)
             motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 255)
         } else if (onoff == 2) {
-            motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 80)
-            motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 255)
+            motor.MotorRun(motor.Motors.M1, motor.Dir.CW, 80)
+            motor.MotorRun(motor.Motors.M2, motor.Dir.CW, 255)
         } else {
             motor.motorStopAll()
         }
     } else if (receivedString == "Droite") {
         if (onoff == 1) {
-            motor.MotorRun(motor.Motors.M1, motor.Dir.CW, 255)
-            motor.MotorRun(motor.Motors.M2, motor.Dir.CW, 80)
+            motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 255)
+            motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 80)
         } else if (onoff == 2) {
             motor.MotorRun(motor.Motors.M1, motor.Dir.CW, 255)
             motor.MotorRun(motor.Motors.M2, motor.Dir.CW, 80)
@@ -47,7 +47,6 @@ radio.onReceivedString(function (receivedString) {
             onoff = 0
         } else {
             motor.motorStopAll()
-            onoff = 0
         }
     }
 })
