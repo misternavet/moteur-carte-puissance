@@ -1,41 +1,53 @@
+radio.onReceivedNumber(function (receivedNumber) {
+	
+})
 radio.onReceivedString(function (receivedString) {
     if (receivedString == "Accelere") {
-        motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 205)
-        motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 205)
+        motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 204)
+        motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 204)
         onoff = 1
     } else if (receivedString == "reculer") {
         motor.MotorRun(motor.Motors.M1, motor.Dir.CW, 204)
         motor.MotorRun(motor.Motors.M2, motor.Dir.CW, 204)
         onoff = 2
-    } else if (receivedString == "droite") {
-        motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 178)
-        motor.MotorRun(motor.Motors.M2, motor.Dir.CW, 255)
-        onoff = 1
-    } else if (receivedString == "gauche") {
-        motor.MotorRun(motor.Motors.M1, motor.Dir.CW, 178)
-        motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 255)
-        onoff = 1
-    } else {
+    } else if (receivedString == "Gauche") {
         if (onoff == 1) {
+            motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 80)
+            motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 255)
+        } else if (onoff == 2) {
+            motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 80)
+            motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 255)
+        } else {
+            motor.motorStopAll()
+        }
+    } else if (receivedString == "Droite") {
+        if (onoff == 1) {
+            motor.MotorRun(motor.Motors.M1, motor.Dir.CW, 255)
+            motor.MotorRun(motor.Motors.M2, motor.Dir.CW, 80)
+        } else if (onoff == 2) {
+            motor.MotorRun(motor.Motors.M1, motor.Dir.CW, 255)
+            motor.MotorRun(motor.Motors.M2, motor.Dir.CW, 80)
+        } else {
+            motor.motorStopAll()
+        }
+    } else if (receivedString == "Boost") {
+        motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 255)
+        motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 255)
+    } else if (receivedString == "Frein") {
+        onoff = 0
+    } else {
+        if (onoff == 1 && receivedString != "Boost") {
             déccélération = 204
             for (let index = 0; index < 204; index++) {
                 motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, déccélération)
                 motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, déccélération)
-                basic.pause(1)
+                basic.pause(2)
                 déccélération += -1
             }
             onoff = 0
-        } else if (onoff == 2) {
-            déccélération = 204
-            for (let index = 0; index < 204; index++) {
-                motor.MotorRun(motor.Motors.M1, motor.Dir.CW, déccélération)
-                motor.MotorRun(motor.Motors.M2, motor.Dir.CW, déccélération)
-                basic.pause(1)
-                déccélération += -1
-            }
-            déccélération = 0
         } else {
             motor.motorStopAll()
+            onoff = 0
         }
     }
 })
